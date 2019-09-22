@@ -5,7 +5,7 @@ import {YouTube} from "../fetcher/YouTube";
 import Discord from 'discord.js';
 import {trigger} from "../core/utils/Decorators";
 
-@trigger('youtube', 'y')
+@trigger('youtube', 'y', 'YouTube')
 class Youtube extends Command {
     help(trigger: string): Help {
         return new Help()
@@ -18,7 +18,7 @@ class Youtube extends Command {
         if (args.length === 0) throw 'Argument Missing!';
 
         let data = await YouTube(args.join(' '));
-        let reply = new Reply(message).setTitle('YouTube');
+        let reply = new Message(message);
 
         if (data == null || data.items[0].id.videoId == null) {
             reply.addField('Error', 'No video found for that input!').send();
